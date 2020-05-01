@@ -1,0 +1,115 @@
+<div ng-controller="locationListController as tableData">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="input-group searchContainer col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            <input class="searchButton col-lg-8 col-md-8 col-sm-8 col-xs-8" ng-model="searchText" placeholder="Search" type="search" ng-change="search()" />
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <table class="table  table-hover data-table myTable table-bordered" id="table">
+                <thead>
+                    <tr>
+                        <th class="locationId">
+                            <span class="{{Header[0]}}"></span>
+                            <a ng-click="sort('locationId')">Location ID
+                                           </a>
+                        </th>
+                        <th class="locationName">
+                            <span class="{{Header[1]}}"></span>
+                            <a ng-click="sort('locationName')">Location Name
+                                           </a>
+                        </th>
+                        <th class="sectionName">
+                            <span class="{{Header[2]}}"></span>
+                            <a ng-click="sort('sectionName')" href="javascript:void(0);">Section Name
+                                           </a>
+                        </th>
+                        <th class="orders">
+                            <span class="{{Header[3]}}"></span>
+                            <a ng-click="sort('orderId')" href="javascript:void(0);">Order Decription
+                                            </a>
+                        </th>
+                        <th class="Button">
+                            <span style="color:#337AB7;"> Edit
+                                            </span>
+                        </th>
+                        <th class="Button">
+                            <span style="color:#337AB7;"> Delete
+                                            </span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in ItemsByPage[currentPage] | orderBy:columnToOrder:reverse" data-toggle="tooltip" data-placement="bottom" data-original-title={{name}}>
+                        <td>{{item.locationId}}</td>
+                        <td>{{item.locationName}}</td>
+                        <td>{{item.sectionName}}</td>
+                        <td>{{item.orderId}}</td>
+                        <td>
+                            <button type="button" class="btn btn-default editBtn" style="margin-right:20px !important;" ng-click="openModal(item)">Edit</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-default deleteBtn" style="margin-right:20px !important;" ng-click="deleteRow(item)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul class="pagination pagination-sm" style="margin-top:0px !important;margin-bottom:30px !important;">
+                <li ng-class="{active:0}">
+                    <a href="javascript:void(0);" ng-click="firstPage()">1</a>
+                </li>
+                <li ng-repeat="n in range(ItemsByPage.length)">
+                    <a href="javascript:void(0);" ng-click="setPage()" ng-bind="n+1">1</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" ng-click="lastPage()">Last</a>
+                </li>
+            </ul>
+            <button type="button" class="btn btn-primary export-button" ng-click="exportCSV()">Export to Excel</button>
+        </div>
+    </div>
+    <!--Start of End Section--->
+    <div class="modal fade" modal="showModal">
+        <form name="editLocationForm">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancelEdit()">&times;</button>
+                        <h2 class="modal-title">Edit Location</h2>
+                    </div>
+                    <div class="modal-body">
+                        <div role="form" class="form-horizontal">
+                            <div class="form-group">
+                                <label for="locationIdLoc" class="control-label col-sm-2">Location Id:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="locationIdLoc" name="locationIdLoc" ng-model="itemClicked.locationId" class="form-control" placeholder="Location Id" value={{itemClicked.locationId}} disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="locationNameLoc" class="control-label col-sm-2">Location Name:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="locationNameLoc" name="locationNameLoc" ng-model="itemClicked.locationName" class="form-control" placeholder="Location Name" value={{itemClicked.locationName}} required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="sectionNameLoc" class="control-label col-sm-2">Section Name:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="sectionNameLoc" name="sectionNameLoc" ng-model="itemClicked.sectionName" class="form-control" placeholder="Section Name" value={{itemClicked.sectionName}} required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="ordersLoc" class="control-label col-sm-2">Order Description:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="ordersLoc" ng-model="itemClicked.orderId" class="form-control" placeholder="Order Id" value={{itemClicked.orderId}} disabled>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancelEdit()">Cancel</button>
+                        <button type="button" class="btn btn-primary" ng-click="saveEditValues()" ng-disabled="editLocationForm.$invalid">Save</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

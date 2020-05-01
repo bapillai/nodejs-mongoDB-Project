@@ -1,0 +1,169 @@
+<div ng-controller="inventoryListController as tableData">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="input-group inputListContainer col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <label for="inventoryLocationList" class="col-lg-2 col-md-2 col-sm-2 col-xs-2 control-label">Location Name</label>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <select name="inventoryLocationList" id="inventoryLocationList" class="form-control" data-ng-model="inputLocationForList" data-ng-selected="getLocationSelected(inputLocationForList);">
+                            <option ng-repeat="item in locationListForInventoryTable" value="{{item.locationId}}">{{item.locationName}}</option>
+                        </select>
+                </div>
+            </div>
+            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <label for="inventorySectionList" class="col-lg-2 col-md-2 col-sm-2 col-xs-2 control-label">Section Name</label>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <select name="inventorySectionList" id="inventorySectionList" class="form-control" data-ng-model="inputSectionForList" data-ng-selected="getSectionSelected(inputSectionForList);">
+                            <option ng-repeat="item in sectionListForInventoryTable" value="{{item.sectionId}}">{{item.sectionName}}</option>
+                        </select>
+                </div>
+            </div>
+        </div>
+        <div class="input-group searchContainer col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            <input class="searchButton col-lg-8 col-md-8 col-sm-8 col-xs-8" ng-model="searchText" placeholder="Search" type="search" ng-change="search()" />
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <table class="table  table-hover data-table myTable table-bordered" id="table">
+                <thead>
+                    <tr>
+                        <th class="inventoryId">
+                            <span class="{{Header[0]}}"></span>
+                            <a ng-click="sort('inventoryId')">Inventory ID
+                                           </a>
+                        </th>
+                        <th class="inventoryName">
+                            <span class="{{Header[1]}}"></span>
+                            <a ng-click="sort('inventoryName')">Inventory Name
+                                           </a>
+                        </th>
+                        <th class="price">
+                            <span class="{{Header[2]}}"></span>
+                            <a ng-click="sort('price')" href="javascript:void(0);">Price
+                                           </a>
+                        </th>
+                        <th class="quantity">
+                            <span class="{{Header[3]}}"></span>
+                            <a ng-click="sort('quantity')" href="javascript:void(0);">Quantity
+                                            </a>
+                        </th>
+                        <th class="locationId">
+                            <span class="{{Header[4]}}"></span>
+                            <a ng-click="sort('locationName')" href="javascript:void(0);"> Location Name
+                                            </a>
+                        </th>
+                        <th class="sectionId">
+                            <span class="{{Header[4]}}"></span>
+                            <a ng-click="sort('sectionName')" href="javascript:void(0);"> Section Name
+                                            </a>
+                        </th>
+                        <th class="Button">
+                            <span style="color:#337AB7;"> Edit
+                                            </span>
+                        </th>
+                        <th class="Button">
+                            <span style="color:#337AB7;"> Delete
+                                            </span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in ItemsByPage[currentPage] | orderBy:columnToOrder:reverse" data-toggle="tooltip" data-placement="bottom" data-original-title={{name}}>
+                        <td>{{item.inventoryId}}</td>
+                        <td>{{item.inventoryName}}</td>
+                        <td>{{item.price}}</td>
+                        <td>{{item.quantity}}</td>
+                        <td>{{item.locationName}}</td>
+                        <td>{{item.sectionName}}</td>
+                        <td>
+                            <button type="button" class="btn btn-default editBtn" style="margin-right:20px !important;" ng-click="openModal(item)">Edit</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-default deleteBtn" style="margin-right:20px !important;" ng-click="deleteRow(item)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul class="pagination pagination-sm" style="margin-top:0px !important;margin-bottom:30px !important;">
+                <li ng-class="{active:0}">
+                    <a href="javascript:void(0);" ng-click="firstPage()">1</a>
+                </li>
+                <li ng-repeat="n in range(ItemsByPage.length)">
+                    <a href="javascript:void(0);" ng-click="setPage()" ng-bind="n+1">1</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" ng-click="lastPage()">Last</a>
+                </li>
+            </ul>
+            <button type="button" class="btn btn-primary export-button" ng-click="exportCSV()">Export to Excel</button>
+        </div>
+    </div>
+    <!--Start of End Section--->
+    <div class="modal fade" modal="showModal">
+        <form name="editInventoryForm">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancelEdit()">&times;</button>
+                        <h2 class="modal-title">Edit Inventory</h2>
+                    </div>
+                    <div class="modal-body">
+                        <div role="form" class="form-horizontal">
+                            <div class="form-group">
+                                <label for="inventoryIdInv" class="control-label col-sm-2">Inventory Id:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="inventoryIdInv" name="inventoryIdInv" ng-model="itemClicked.inventoryId" class="form-control" placeholder="Inventory Id" value={{itemClicked.inventoryId}} disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inventoryNameInv" class="control-label col-sm-2">Inventory Name:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="inventoryNameInv" name="inventoryNameInv" ng-model="itemClicked.inventoryName" class="form-control" placeholder="Inventory Name" value={{itemClicked.inventoryName}} required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="priceInv" class="control-label col-sm-2">Price:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="priceInv" name="priceInv" ng-model="itemClicked.price" class="form-control" placeholder="Price" value={{itemClicked.price}} required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="quantityInv" class="control-label col-sm-2">Quantity:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="quantityInv" name="quantityInv" ng-model="itemClicked.quantity" class="form-control" placeholder="Quantity" value={{itemClicked.quantity}} required>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="locationIdInv" class="control-label col-sm-2">Location Id:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="locationIdInv" name="locationIdInv" ng-model="itemClicked.locationId" class="form-control" placeholder="location Id" value={{itemClicked.locationId}} required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="locationNameInv" class="control-label col-sm-2">Location Name:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="locationNameInv" name="locationNameInv" ng-model="itemClicked.locationName" class="form-control" placeholder="location Id" value={{itemClicked.locationName}} required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="sectionIdInv" class="control-label col-sm-2">Section Id:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="sectionIdInv" name="sectionIdInv" ng-model="itemClicked.sectionId" class="form-control" placeholder="section Id" value={{itemClicked.sectionId}} required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="sectionNameInv" class="control-label col-sm-2">Section Name:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="sectionNameInv" name="sectionNameInv" ng-model="itemClicked.sectionName" class="form-control" placeholder="section Name" value={{itemClicked.sectionName}} required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancelEdit()">Cancel</button>
+                        <button type="button" class="btn btn-primary" ng-click="saveEditValues()" ng-disabled="editInventoryForm.$invalid">Save</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

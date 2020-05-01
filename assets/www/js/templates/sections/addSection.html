@@ -1,0 +1,29 @@
+<div data-ng-controller="addSectionController" class="container">
+    <p>{{successMessageSection}}</p>
+    <form class="form-horizontal" role="form" class="sectionForm" name='sectionForm' novalidate>
+        <div class="form-group">
+            <label for="sectionLocation" class="col-sm-2 control-label">Location Name</label>
+            <div class="col-sm-6">
+                <div class="col-sm-6">
+                    <select name="sectionLocation" id="sectionLocation" class="form-control" data-ng-model="inputLocation" data-ng-selected="getLocationSelected(inputLocation);">
+                        <option ng-repeat="item in locationListForSection" value="{{item.locationId}}">{{item.locationName}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+         <div class="form-group">
+            <label for="inputLocation" class="col-sm-2 control-label">Sections</label>
+            <div class="col-sm-6">
+                <div class="col-sm-6">
+                    <input auto-complete ui-items="sectionList" ng-model="selectedSection">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" class="btn btn-success" ng-click='saveSectionForm()'>Add Section</button>
+                <button type="button" class="btn btn-success" ng-click='formClear()'>Reset</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,13 @@
+<div class="employee_container" data-ng-controller="employeeController">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <button type="button" class="btn btn-success add_emp_button" ng-click='showAddEmployeeForm()'>+ Add Employee</button>
+            </div>
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            </div>
+        </div>
+    </div>
+    <ng-include src=" 'www/js/templates/employees/addemployee.html' " ng-show="showEmployeeForm"></ng-include>
+    <ng-include src=" 'www/js/templates/employees/employeeList.html' " ng-show="!showEmployeeForm"></ng-include>
+</div>

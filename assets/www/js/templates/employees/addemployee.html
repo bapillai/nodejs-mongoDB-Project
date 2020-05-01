@@ -1,0 +1,54 @@
+<div data-ng-controller="addEmployeeController" class="container">
+    <p>{{successMessage}}</p>
+    <form class="form-horizontal" role="form" class="employeeForm" name='employeeForm' novalidate>
+        <div class="form-group">
+            <label for="inputName" class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-4">
+                <input class="form-control" id="inputName" placeholder="Name" data-ng-model="inputName">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPhone" class="col-sm-2 control-label">Phone</label>
+            <div class="col-sm-4">
+                <input class="form-control" id="inputPhone" placeholder="Phone" data-ng-model="inputPhone">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-4">
+                <input class="form-control" id="inputEmail" placeholder="Email" data-ng-model="inputEmail">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputLocation" class="col-sm-2 control-label">Location</label>
+            <div class="col-sm-4">
+                <select name="location" class="form-control" data-ng-model="inputLocation" data-ng-selected="getLocationSelected(inputLocation);">
+                    <option ng-repeat="item in locationListForEmployee" value="{{item.locationId}}">{{item.locationName}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputSectionName" class="col-sm-2 control-label">Section Name</label>
+            <div class="col-sm-4">
+                 <select name="inputSectionName" class="form-control" data-ng-model="inputSection">
+                    <option ng-repeat="item in sectionListForEmployee" value="{{item.sectionId}}">{{item.sectionName}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputRole" class="col-sm-2 control-label">Role</label>
+            <div class="col-sm-4">
+                <select name="duration" class="form-control" data-ng-model="selectedRole">
+                    <option>Manager</option>
+                    <option>Server</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" class="btn btn-success" ng-click='saveData()'>Submit</button>
+                <button type="button" class="btn btn-success" ng-click='formClear()'>Reset</button>
+            </div>
+        </div>
+    </form>
+</div>

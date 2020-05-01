@@ -1,0 +1,55 @@
+<div data-ng-controller="addInventoryController" class="container">
+    <p>{{successMessageInventory}}</p>
+    <form class="form-horizontal" role="form" class="inventoryForm" name='inventoryForm' novalidate>
+        <div class="form-group">
+            <label for="inventoryLocation" class="col-sm-2 control-label">Location Name</label>
+            <div class="col-sm-6">
+                <div class="col-sm-6">
+                    <select name="inventoryLocation" id="inventoryLocation" class="form-control" data-ng-model="inputLocation" data-ng-selected="getLocationSelected(inputLocation);">
+                        <option ng-repeat="item in locationListForInventory" value="{{item.locationId}}">{{item.locationName}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inventoryTable" class="col-sm-2 control-label">Section Name</label>
+            <div class="col-sm-6">
+                <div class="col-sm-6">
+                    <select name="inventoryTable" id="inventoryTable" class="form-control" data-ng-model="inputSection" data-ng-selected="getSectionSelected(inputSection);">
+                        <option ng-repeat="item in sectionListForInventory" value="{{item.sectionId}}">{{item.sectionName}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+         <div class="form-group">
+            <label for="inventoryName" class="col-sm-2 control-label">Inventory Name</label>
+            <div class="col-sm-6">
+                <div class="col-sm-6">
+                    <input name="inventoryName" id="inventoryName"  ng-model="inventoryName">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="price" class="col-sm-2 control-label">Price</label>
+            <div class="col-sm-6">
+                <div class="col-sm-6">
+                    <input name="price" id="price"  ng-model="price">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="quantity" class="col-sm-2 control-label">Quantity</label>
+            <div class="col-sm-6">
+                <div class="col-sm-6">
+                    <input name="quantity" id="quantity"  ng-model="quantity">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" class="btn btn-success" ng-click='saveInventoryForm()'>Add Inventory</button>
+                <button type="button" class="btn btn-success" ng-click='formClear()'>Reset</button>
+            </div>
+        </div>
+    </form>
+</div>

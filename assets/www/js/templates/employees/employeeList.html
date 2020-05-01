@@ -1,0 +1,139 @@
+<div ng-controller="employeeListController">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="input-group searchContainer col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            <input class="searchButton col-lg-8 col-md-8 col-sm-8 col-xs-8" ng-model="searchText" placeholder="Search" type="search" ng-change="search()"/>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <table class="table  table-hover data-table myTable table-bordered" id="table">
+                <thead>
+                    <tr>
+                        <th class="employeeId">
+                            <span class="{{Header[0]}}"></span>
+                            <a ng-click="sort('employeeId')">Employee ID
+                                           </a>
+                        </th>
+                        <th class="name">
+                            <span class="{{Header[1]}}"></span>
+                            <a ng-click="sort('name')">Name
+                                           </a>
+                        </th>
+                        <th class="phoneNumber">
+                            <span class="{{Header[2]}}"></span>
+                            <a ng-click="sort('phoneNumber')" href="javascript:void(0);">Phone Number
+                                           </a>
+                        </th>
+                        <th class="email">
+                            <span class="{{Header[3]}}"></span>
+                            <a ng-click="sort('email')" href="javascript:void(0);">Email
+                                            </a>
+                        </th>
+                        <th class="locationName">
+                            <span class="{{Header[4]}}"></span>
+                            <a ng-click="sort('locationName')" href="javascript:void(0);"> Location Name
+                                            </a>
+                        </th>
+                        <th class="role">
+                            <span class="{{Header[5]}}"></span>
+                            <a ng-click="sort('role')" href="javascript:void(0);"> Role
+                                            </a>
+                        </th>
+                        <th class="Button">
+                            <span style="color:#337AB7;"> Edit
+                                            </span>
+                        </th>
+                        <th class="Button">
+                            <span style="color:#337AB7;"> Delete
+                                            </span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in ItemsByPage[currentPage] | orderBy:columnToOrder:reverse" data-toggle="tooltip" data-placement="bottom" data-original-title={{name}}>
+                        <td>{{item.employeeId}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.phoneNumber}}</td>
+                        <td>{{item.email}}</td>
+                        <td>{{item.locationName}}</td>
+                        <td>{{item.role}}</td>
+                        <td>
+                            <button type="button" class="btn btn-default editBtn" style="margin-right:20px !important;" ng-click="openModal(item)">Edit</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-default deleteBtn" style="margin-right:20px !important;" ng-click="deleteRow(item)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul class="pagination pagination-sm" style="margin-top:0px !important;margin-bottom:30px !important;">
+                <li ng-class="{active:0}">
+                    <a href="javascript:void(0);" ng-click="firstPage()">1</a>
+                </li>
+                <li ng-repeat="n in range(ItemsByPage.length)">
+                    <a href="javascript:void(0);" ng-click="setPage()" ng-bind="n+1">1</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" ng-click="lastPage()">Last</a>
+                </li>
+            </ul>
+             <button type="button" class="btn btn-primary export-button" ng-click="exportCSV()">Export to Excel</button>
+        </div>
+    </div>
+    <!--Start of End Section--->
+    <div class="modal fade" modal="showModal">
+        <form name="editEmployeeForm">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancelEdit()">&times;</button>
+                        <h2 class="modal-title">Edit Employee</h2>
+                    </div>
+                    <div class="modal-body">
+                        <div role="form" class="form-horizontal">
+                            <div class="form-group">
+                                <label for="employeeIdEmp" class="control-label col-sm-2">Employee Id:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="employeeIdEmp" name="employeeIdEmp" ng-model="itemClicked.employeeId" class="form-control" placeholder="Name" value={{itemClicked.employeeId}} disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="nameEmp" class="control-label col-sm-2">Name:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="nameEmp" name="nameEmp" ng-model="itemClicked.name" class="form-control" placeholder="Name" value={{itemClicked.name}} required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="phoneNumberEmp" class="control-label col-sm-2">Phone Number:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" id="phoneNumberEmp" name="phoneNumberEmp" ng-model="itemClicked.phoneNumber" class="form-control" placeholder="Phone Number" value={{itemClicked.phoneNumber}} required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="emailEmp" class="control-label col-sm-2">Email:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="emailEmp" ng-model="itemClicked.email" class="form-control" placeholder="Email" value={{itemClicked.email}} required>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="date_created:" class="control-label col-sm-2">Location Name:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="locationNameEmp" ng-model="itemClicked.locationName" class="form-control" placeholder="Location Name" value={{itemClicked.locationName}} required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="roleEmp" class="control-label col-sm-2">Role:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="roleEmp" ng-model="itemClicked.role" class="form-control" placeholder="Role" value={{itemClicked.role}} required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancelEdit()">Cancel</button>
+                        <button type="button" class="btn btn-primary" ng-click="saveEditValues()" ng-disabled="editEmployeeForm.$invalid">Save</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

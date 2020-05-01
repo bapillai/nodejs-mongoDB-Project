@@ -1,0 +1,69 @@
+<div data-ng-controller="addOrderController" class="container">
+    <p>{{successMessageOrder}}</p>
+    <form class="form-horizontal" role="form" class="orderForm" name='orderForm' novalidate>
+        <div class="form-group">
+            <label for="orderLocation" class="col-sm-2 control-label">Location Name</label>
+            <div class="col-sm-6">
+                <div class="col-sm-6">
+                    <select name="orderLocation" id="orderLocation" class="form-control" data-ng-model="inputLocationOrder" data-ng-selected="getLocationSelectedOrder(inputLocationOrder);">
+                        <option ng-repeat="item in locationListForOrder" value="{{item.locationId}}">{{item.locationName}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+         <div class="form-group">
+            <label for="orderEmployee" class="col-sm-2 control-label">Employee Name</label>
+            <div class="col-sm-6">
+                <div class="col-sm-6">
+                    <select name="orderEmployee" id="orderEmployee" class="form-control" data-ng-model="inputEmployeeOrder" data-ng-selected="getEmployeeSelectedOrder(inputEmployeeOrder);">
+                        <option ng-repeat="item in employeeListForOrder" value="{{item.employeeId}}">{{item.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="ordersSection" class="col-sm-2 control-label">Section Name</label>
+            <div class="col-sm-6">
+                <div class="col-sm-6">
+                    <select name="ordersSection" id="ordersSection" class="form-control" data-ng-model="inputSectionOrder" data-ng-selected="getSectionSelectedOrder(inputSectionOrder);">
+                        <option ng-repeat="item in sectionListForOrder" value="{{item.sectionId}}">{{item.sectionName}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="ordersTable" class="col-sm-2 control-label">Table Name</label>
+            <div class="col-sm-6">
+                <div class="col-sm-6">
+                    <select name="ordersTable" id="ordersTable" class="form-control" data-ng-model="inputTableOrder" data-ng-selected="getTableSelectedOrder(inputTableOrder);">
+                        <option ng-repeat="item in tableListForOrder" value="{{item.tableId}}">{{item.tableName}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="ordersTable" class="col-sm-2 control-label">Inventory Name</label>
+            <div class="col-sm-6">
+                <div class="col-sm-6">
+                    <select name="ordersTable" id="ordersTable" class="form-control" data-ng-model="inputInventoryOrder" data-ng-selected="getInventorySelectedOrder(inputInventoryOrder);">
+                        <option ng-repeat="item in inventoryListForOrder" value="{{item.inventoryId}}">{{item.inventoryName}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="orderDesc" class="col-sm-2 control-label">Order Description</label>
+            <div class="col-sm-6">
+                <div class="col-sm-6">
+                    <input name="orderDesc" id="orderDesc"  ng-model="orderDesc">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" class="btn btn-success" ng-click='saveOrderForm()'>Place Order</button>
+                <button type="button" class="btn btn-success" ng-click='formClear()'>Reset</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,13 @@
+<div class="table_container" data-ng-controller="tableController">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <button type="button" class="btn btn-success add_table_button" ng-click='showAddTableForm()'>+ Tag a Table</button>
+            </div>
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            </div>
+        </div>
+    </div>
+    <ng-include src=" 'www/js/templates/tables/addTable.html' " ng-show="showTableForm"></ng-include>
+    <ng-include src=" 'www/js/templates/tables/tablesList.html' " ng-show="!showTableForm"></ng-include>
+</div>

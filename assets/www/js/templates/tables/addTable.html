@@ -1,0 +1,39 @@
+<div data-ng-controller="addTableController" class="container">
+    <p>{{successMessageTable}}</p>
+    <form class="form-horizontal" role="form" class="sectionForm" name='sectionForm' novalidate>
+        <div class="form-group">
+            <label for="sectionLocation" class="col-sm-2 control-label">Location Name</label>
+            <div class="col-sm-6">
+                <div class="col-sm-6">
+                    <select name="sectionLocation" id="sectionLocation" class="form-control" data-ng-model="inputLocation" data-ng-selected="getLocationSelected(inputLocation);">
+                        <option ng-repeat="item in locationListForSection" value="{{item.locationId}}">{{item.locationName}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="sectionTable" class="col-sm-2 control-label">Section Name</label>
+            <div class="col-sm-6">
+                <div class="col-sm-6">
+                    <select name="sectionTable" id="sectionTable" class="form-control" data-ng-model="inputSection" data-ng-selected="getSectionSelected(inputSection);">
+                        <option ng-repeat="item in sectionListForTable" value="{{item.sectionId}}">{{item.sectionName}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+         <div class="form-group">
+            <label for="inputTable" class="col-sm-2 control-label">Table Name</label>
+            <div class="col-sm-6">
+                <div class="col-sm-6">
+                    <input name="inputTable" id="inputTable" auto-complete ui-items="tableList" ng-model="selectedTable">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" class="btn btn-success" ng-click='saveTableForm()'>Add Table</button>
+                <button type="button" class="btn btn-success" ng-click='formClear()'>Reset</button>
+            </div>
+        </div>
+    </form>
+</div>

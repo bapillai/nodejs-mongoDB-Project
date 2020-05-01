@@ -1,0 +1,17 @@
+<div data-ng-controller="addLocationController" class="container">
+    <p>{{successMessage}}</p>
+    <form class="form-horizontal" role="form" class="locationForm" name='locationForm' novalidate>
+        <div class="form-group">
+            <label for="inputLocation" class="col-sm-2 control-label">Location</label>
+            <div class="col-sm-4">
+                <input class="form-control" id="inputLocation" placeholder="Location" data-ng-model="inputLocation">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" class="btn btn-success" ng-click='saveDataLocation()'>Submit</button>
+                <button type="button" class="btn btn-success" ng-click='formClear()'>Reset</button>
+            </div>
+        </div>
+    </form>
+</div>

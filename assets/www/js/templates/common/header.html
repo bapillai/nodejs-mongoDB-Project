@@ -1,0 +1,54 @@
+<div class="row ">
+    <header class="header_container">
+        <div ng-controller="headerController">
+            <div class="row ">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 header_row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                        <h2 style="margin-left:400px;">Royals</h2>
+                    </div>
+                    <div class="col-lg-2 col-xs-2">
+                        <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-user"></span> 
+                        <strong>{{loginName}}</strong>
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="navbar-login">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <p class="text-center">
+                                            <span class="glyphicon glyphicon-user icon-size"></span>
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <p class="text-left"><strong>{{loginName}}</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="navbar-login navbar-login-session">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <p>
+                                            <a href="javascript:void(0);" class="btn btn-danger btn-block" ng-click="logOut();">Log Out</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+                    </div>
+            </div>
+        </div>
+    </header>
+</div>
