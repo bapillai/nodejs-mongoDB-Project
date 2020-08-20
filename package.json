@@ -24,7 +24,7 @@
     "socket.io": "^1.0.6",
     "socket.io-client": "^1.0.6",
     "socketio-jwt": "^3.0.0",
-    "bcrypt": "^0.8.5",
+    "bcrypt": "^5.0.0",
     "body-parser": "~1.9.2",
     "express": "~4.9.8",
     "jwt-simple": "^0.3.1",
